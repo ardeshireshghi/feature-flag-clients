@@ -14,7 +14,7 @@ module Feature
 
           url = "#{ base_uri }#{ base_path }"
           response = HTTParty.get(url, options)
-          parsed_response = JSON.parse(response.body)
+          parsed_response = OpenStruct.new(JSON.parse(response.body))
 
           cache.set(CACHE_KEY, parsed_response, expires_in: CACHE_TTL)
           parsed_response

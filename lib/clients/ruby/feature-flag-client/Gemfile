@@ -1,10 +1,12 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+source 'https://rubygems.org'
+
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 # Specify your gem's dependencies in feature-flag-client.gemspec
 gemspec
 
-gem "httparty", "~> 0.17.3"
+gem 'rubocop', '~> 0.91.0'
 
-gem "mini_cache", "~> 1.1"
+gem 'webmock', '~> 3.9'

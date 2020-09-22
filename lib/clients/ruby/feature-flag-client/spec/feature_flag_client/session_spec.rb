@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe FeatureFlagService::Session do
+RSpec.describe FeatureFlagClient::Session do
   subject(:session) do
     described_class.new(client_id: 'some_client_id', client_secret: 'some secret') do |s|
       s.auth_service_url = 'http://localhost:8083/auth/token'
@@ -9,7 +9,10 @@ RSpec.describe FeatureFlagService::Session do
 
   describe '#access_token' do
     let(:api_response) do
-      { token_type: 'Bearer', access_token: 'some access token', refresh_token: 'some refresh token', expires_in: 86_400 }.to_json
+      { token_type: 'Bearer',
+        access_token: 'some access token',
+        refresh_token: 'some refresh token',
+        expires_in: 86_400 }.to_json
     end
 
     before do

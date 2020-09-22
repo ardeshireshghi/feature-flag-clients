@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    feature-flag-client (0.1.0)
+    feature_flag_client (0.1.0)
       httparty (~> 0.17.3)
       mini_cache (~> 1.1)
 
@@ -66,7 +66,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 2.1)
-  feature-flag-client!
+  feature_flag_client!
   rake (~> 10.0)
   rspec (~> 3.0)
   rubocop (~> 0.91.0)

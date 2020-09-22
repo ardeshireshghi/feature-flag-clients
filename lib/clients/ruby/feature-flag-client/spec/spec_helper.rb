@@ -2,8 +2,8 @@
 
 require 'bundler/setup'
 require 'webmock/rspec'
-require 'feature_flag_service/client'
-require 'feature_flag_service/session'
+require 'feature_flag_client/client'
+require 'feature_flag_client/session'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

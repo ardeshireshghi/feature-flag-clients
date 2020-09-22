@@ -2,7 +2,8 @@
 
 require 'httparty'
 
-module FeatureFlagService
+module FeatureFlagClient
+  # Takes care of getting access_token necessary to call features service
   class Session
     attr_accessor :client_id, :client_secret, :auth_service_url
 
@@ -28,15 +29,8 @@ module FeatureFlagService
     def request_access_token(refresh: false)
       raise StandardError, 'auth_service_url must be defined' if auth_service_url.nil?
 
-      req_body = {
-        client_id: client_id,
-        client_secret: client_secret
-      }
-
-      req_body[:refresh_token] = @parsed_auth_response['refresh_token'] if refresh
-
       auth_service_response_raw = HTTParty.post(auth_service_url, {
-                                                  body: req_body.to_json,
+                                                  body: auth_params(refresh: refresh).to_json,
                                                   headers: {
                                                     'Content-Type' => 'application/json'
                                                   }
@@ -48,6 +42,17 @@ module FeatureFlagService
 
     def token_expired?
       Time.now > Time.at(Time.now.to_i + @parsed_auth_response['expires_in'])
+    end
+
+    def auth_params(refresh: false)
+      params = {
+        client_id: client_id,
+        client_secret: client_secret
+      }
+
+      return params unless refresh
+
+      params.merge(refresh_token: @parsed_auth_response['refresh_token'])
     end
   end
 end

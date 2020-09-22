@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Write a short summary, because RubyGems requires one.'
   spec.description   = 'Write a longer description or delete this line.'
-  spec.homepage      = 'https://github.com/ardeshireshghi/feature-flag-clients/lib/clients/ruby'
+  spec.homepage      = 'https://github.com/ardeshireshghi/feature-flag-clients/tree/master/lib/clients/ruby/feature-flag-client'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

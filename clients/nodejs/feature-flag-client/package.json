@@ -1,0 +1,25 @@
+{
+  "name": "feature-flag-client",
+  "version": "0.0.1",
+  "description": "Feature Flag service node client",
+  "main": "lib/client.js",
+  "scripts": {
+    "test": "jest",
+    "coverage": "npm test -- --collect-coverage",
+    "format": "prettier --write ./**/*.js"
+  },
+  "keywords": [],
+  "engines": {
+    "node": ">=12.0"
+  },
+  "author": "Ardeshir Eshghi<ardi.eshghi@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "isomorphic-unfetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "jest": "^26.4.2",
+    "msw": "^0.21.2",
+    "prettier": "^2.1.2"
+  }
+}

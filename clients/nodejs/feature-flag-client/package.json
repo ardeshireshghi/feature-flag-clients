@@ -1,7 +1,7 @@
 {
-  "name": "feature-flag-client",
+  "name": "@eardi/feature-flag-client",
   "version": "0.0.1",
-  "description": "Feature Flag service node client",
+  "description": "Feature Flag service Node client",
   "main": "lib/client.js",
   "scripts": {
     "test": "jest",

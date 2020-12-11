@@ -7,14 +7,14 @@ This `npm` package is the API client for FeatureFlag service and allows fetching
 Add this line to your application's Gemfile:
 
 ```bash
-$ npm install '@ardi/feature-flag-client'
+$ npm install '@eardi/feature-flag-client'
 ```
 
 ## Usage
 
 ```javascript
-// ES5: const FeatureFlagClient = require('@ardi/feature_flag_client');
-import FeatureFlagClient from '@ardi/feature_flag_client';
+// ES5: const FeatureFlagClient = require('@eardi/feature_flag_client');
+import FeatureFlagClient from '@eardi/feature_flag_client';
 
 const client = new FeatureFlagClient({
   clientId: '645da701fce2a12c',

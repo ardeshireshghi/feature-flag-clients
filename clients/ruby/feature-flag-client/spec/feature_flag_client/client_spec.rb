@@ -69,21 +69,37 @@ RSpec.describe FeatureFlagClient::Client do
                 Authorization: 'Bearer JWT bearer token'
               }).to_return(body: feature_flag_mock_features_body)
 
-      allow(subject.cache).to receive(:set)
-      allow(subject.cache).to receive(:get)
-
-      api.features('some product')
+      allow(subject.cache).to receive(:set).and_call_original
+      allow(subject.cache).to receive(:get).and_call_original
     end
 
     after { described_class.instance_variable_set('@config', nil) }
 
     it 'sets the features cache' do
-      expect(subject.cache).to have_received(:set)
+      api.features('some product')
+      expect(subject.cache).to have_received(:set).once
     end
 
     it 'serves the features from cache after the next request' do
-      expect(subject.cache).to have_received(:get).twice
       api.features('some product')
+      api.features('some product')
+
+      expect(subject.cache).to have_received(:set).once
+
+      # mini-cache set calls get after set so we invoke 4 times in code
+      expect(subject.cache).to have_received(:get).at_least(5).times
+    end
+
+    it 'returns the feature collection' do
+      features = api.features('some product')
+      expect(features).to be_a(FeatureFlagClient::FeatureCollection)
+    end
+
+    it 'returns the feature data' do
+      features = api.features('some product')
+
+      expect(features.feature('Post offer').enabled).to eq(true)
+      expect(features.feature('Post offer').name).to eq('Post offer')
     end
   end
 end

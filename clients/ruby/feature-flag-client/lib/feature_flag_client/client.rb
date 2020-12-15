@@ -52,12 +52,31 @@ module FeatureFlagClient
     end
   end
 
+  class FeatureCollection
+    attr_reader :features
+
+    def initialize(_features)
+      p _features
+      @features = _features
+    end
+
+    def feature(name)
+      features[name]
+    end
+
+    def to_json(*_args)
+      features.keys.each_with_object({}) do |feature_name, result|
+        result[feature_name] = feature(feature_name).marshal_dump
+      end.to_json
+    end
+  end
+
   # Api Client class to fetch the features
   class Client
     include FeatureFlagClient::Version
 
     CACHE_KEY = 'features'
-    CACHE_TTL = 3600
+    CACHE_TTL = 60
 
     def self.config
       @config ||= FeatureFlagClient::Configuration.new
@@ -84,7 +103,7 @@ module FeatureFlagClient
 
         raise ClientError, response.error unless response.ok?
 
-        cache.set("#{CACHE_KEY}_#{product_name}", response.parsed, expires_in: CACHE_TTL)
+        cache.set("#{CACHE_KEY}_#{product_name}", FeatureCollection.new(response.parsed), expires_in: CACHE_TTL)
       end
 
       cache.get("#{CACHE_KEY}_#{product_name}")

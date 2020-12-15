@@ -24,23 +24,31 @@ Or install it yourself as:
     require 'feature_flag_client'
 
     # In some initializer
-    FeatureFlagClient::Configure do |config|
+    FeatureFlagClient::Client.configure do |config|
         # Main resource API to get feature flags
-        config.api_base_url = 'https://api-feature-flag-service.eu-west-1.elb.amazonaws.com/api/v1'
+        config.api_base_url = 'https://yeahrnb59i.execute-api.eu-west-1.amazonaws.com/dev/api/v1'
 
         # Featureflag service Auth api to get access token
-        config.auth_url = 'https://api-feature-flag-service.eu-west-1.elb.amazonaws.com/auth/token'
+        config.auth_url = 'https://yeahrnb59i.execute-api.eu-west-1.amazonaws.com/dev/auth/token'
 
         # client id and secret to get access token
-        config.client_id = '645da701fce2a12c'
-        config.client_secret = '13c77fa6f8e742fa036cd9f9afa912A@' # store this in a secret manager
+        config.client_id = 'xxxx'
+        config.client_secret = 'xxxxxxxxxxxxxxxxxxxx' # store this in a secret manager
     end
 
     # Elsewhere in the code
     client = FeatureFlagClient.new
     product_name = 'cool product'
-    client.features('cool product')
-    # => {"feature name"=>#<OpenStruct name="feature name", enabled=false, createdAt="2020-09-08T22:08:07.971Z", updatedAt="2020-09-18T23:37:59.479Z">, "feature name 2"=>#<OpenStruct name="feature name 2", enabled=true, createdAt="2020-09-08T22:08:14.309Z", updatedAt="2020-09-11T14:27:29.678Z">, "Magic Feature"=>#<OpenStruct name="Magic Feature", enabled=true, createdAt="2020-09-11T14:27:39.515Z", updatedAt="2020-09-11T14:27:45.873Z">}
+    features = client.features('cool product')
+    # => #<FeatureFlagClient::FeatureCollection:0x00007fb1981a32f8 @features={"qr-logo"=>#<OpenStruct name="qr-logo", enabled=true, createdAt="2020-12-15T14:07:50.274Z", updatedAt="2020-12-15T15:28:46.162Z">, "qr code 2"=>#<OpenStruct name="qr code 2", enabled=false, createdAt="2020-12-15T15:28:52.065Z", updatedAt="2020-12-15T15:28:52.066Z">}>
+
+    features.feature('qr-logo').enabled
+    # => true
+
+    # When looking for a non-existing feature
+    features.feature('non-existing')
+    # => nil
+
 ```
 
 ## Development
